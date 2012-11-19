@@ -1,5 +1,8 @@
 package edu.cmu.lti.oaqa.openqa.test.team01.keyterm;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +16,7 @@ public class ExcludeVerb extends AbstractKeytermExtractor {
 
   @Override
   protected List<Keyterm> getKeyterms(String question) {
+
     question = question.replace('?', ' ');
     question = question.replace('(', ' ');
     question = question.replace('[', ' ');
@@ -33,9 +37,7 @@ public class ExcludeVerb extends AbstractKeytermExtractor {
       for (int i = 0; i < pairs.length; i++) {
         String[] words = pairs[i].split("_");
         if (words[1].indexOf("V") == -1) {
-          System.out.println(words[0]);
-          System.out.println(words[1]);
-          keyterms.add(new Keyterm(words[0]));
+            keyterms.add(new Keyterm(words[0]));     
         }
       }
     } catch (IOException e) {

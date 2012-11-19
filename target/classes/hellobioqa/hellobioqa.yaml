@@ -15,6 +15,7 @@ pipeline:
     name: keyterm-extractor
     options: |
       - inherit: hellobioqa.team01.keyterm.Gen.maiberg
+      - inherit: hellobioqa.team01.keyterm.Gen.yipeiw
       
   - inherit: jdbc.sqlite.cse.phase  
     name: keyterm-updater

@@ -1,5 +1,7 @@
 package edu.cmu.lti.oaqa.openqa.test.team01.keyterm;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +12,16 @@ import edu.cmu.lti.oaqa.framework.data.Keyterm;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
 public class AddVerb extends AbstractKeytermUpdater {
-
+  private String StopWordFile = "/home/yipeiw/workspace/hw2-yipeiw/src/main/resources/StopWordList.txt";
   @Override
   protected List<Keyterm> updateKeyterms(String question, List<Keyterm> original) {
+    List<String> StopWords = new ArrayList<String>();
+    try {
+      StopWords = LoadStopWords(StopWordFile);
+    } catch (IOException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
     
     MaxentTagger tagger;
     try {
@@ -27,9 +36,12 @@ public class AddVerb extends AbstractKeytermUpdater {
           String[] words = pairs[i].split("_");
           if (words[1].indexOf("V")!=-1)
           {
-            System.out.println(words[0]);
-            System.out.println(words[1]);
-            original.add(new Keyterm(words[1]));       
+            if (!StopWords.contains(words[0])) {
+              original.add(new Keyterm(words[0]));
+            }else
+            {
+              System.out.printf("verb stop word: %s, %s",words[0], words[1]);
+            }      
           }
       }
     } catch (IOException e) {
@@ -41,6 +53,20 @@ public class AddVerb extends AbstractKeytermUpdater {
     }
     
     return original;
+  }
+  
+  public List<String> LoadStopWords(String FileName) throws IOException {
+    List<String> stopWords = new ArrayList<String>();
+    FileReader fr = new FileReader(FileName);
+    BufferedReader br = new BufferedReader(fr);
+    String line;
+    while ((line = br.readLine()) != null) {
+      stopWords.add(line.trim());
+      System.out.printf("load stop word %s", line.trim());
+    }
+    br.close();
+    return stopWords;
+
   }
 
 }
