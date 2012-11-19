@@ -8,19 +8,19 @@ persistence-provider:
 collection-reader:
   inherit: hellobioqa.collection.decorated-collection-reader
   dataset: TRECGEN06
-  file: /input/trecgen06.txt
+  file: /input/testInteraction.txt
 
 pipeline:
   - inherit: jdbc.sqlite.cse.phase  
     name: keyterm-extractor
     options: |
-      - inherit: hellobioqa.team01.keyterm.Gen.victor
-      - inherit: hellobioqa.team01.keyterm.Gen.yipeiw
+      - inherit: hellobioqa.team01.keyterm.Gen.maiberg
       
   - inherit: jdbc.sqlite.cse.phase  
     name: keyterm-updater
     options: |
-      - inherit: hellobioqa.team01.keyterm.AddVerb
+      - inherit: hellobioqa.team01.keyterm.simple
+      - inherit: hellobioqa.team01.keyterm.addVerb
 
   - inherit: jdbc.sqlite.cse.phase 
     name: retrieval-strategist
