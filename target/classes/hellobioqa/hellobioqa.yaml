@@ -14,8 +14,13 @@ pipeline:
   - inherit: jdbc.sqlite.cse.phase  
     name: keyterm-extractor
     options: |
-      - inherit: helloqa.keyterm.simple
-      - inherit: hellobioqa.team01.keyterm.ExcludeVerb
+      - inherit: hellobioqa.team01.keyterm.Gen.victor
+      - inherit: hellobioqa.team01.keyterm.Gen.yipeiw
+      
+  - inherit: jdbc.sqlite.cse.phase  
+    name: keyterm-updater
+    options: |
+      - inherit: hellobioqa.team01.keyterm.AddVerb
 
   - inherit: jdbc.sqlite.cse.phase 
     name: retrieval-strategist

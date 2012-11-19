@@ -22,16 +22,21 @@ public class ExcludeVerb extends AbstractKeytermExtractor {
     question = question.replace('\'', ' ');
 
     List<Keyterm> keyterms = new ArrayList<Keyterm>();
-    
+
     try {
-      MaxentTagger tagger = new MaxentTagger("taggers/left3words-distsim-wsj-0-18.tagger");
+      MaxentTagger tagger = new MaxentTagger(
+              "/home/yipeiw/workspace/hw2-yipeiw/taggers/left3words-wsj-0-18.tagger");
       String tagged = tagger.tagString(question);
+
+      System.out.println(tagged);
       String[] pairs = tagged.split("\\s+");
-      for(int i=0; i< pairs.length; i++)
-      {
-          String[] words = pairs[i].split("\\");
-          if (words[1].indexOf("V")!=-1)
-            keyterms.add(new Keyterm(words[1]));              
+      for (int i = 0; i < pairs.length; i++) {
+        String[] words = pairs[i].split("_");
+        if (words[1].indexOf("V") == -1) {
+          System.out.println(words[0]);
+          System.out.println(words[1]);
+          keyterms.add(new Keyterm(words[0]));
+        }
       }
     } catch (IOException e) {
       // TODO Auto-generated catch block
