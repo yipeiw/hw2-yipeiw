@@ -1,0 +1,16 @@
+class: edu.cmu.lti.oaqa.openqa.test.team01.passage.MyPassageExtractor
+
+hit-list-size: 10
+embedded: true
+core: data/guten
+server: http://peace.isri.cs.cmu.edu:9080/solr/genomics-simple/
+port: 9080
+keytermWindowScorer: mysum 
+cross-opts:
+w1: 1f
+w2: 0f
+w3: 0f
+w4: 0f
+  
+persistence-provider: |
+  inherit: ecd.default-log-persistence-provider
